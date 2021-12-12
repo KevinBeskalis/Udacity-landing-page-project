@@ -228,8 +228,7 @@ section.your-active-class .landing__container::after {
 #up {
     position: fixed;
     z-index: 1;
-    width: 3%;
-    height: 5%;
+    height: 30px;
     bottom: 10px;
     left: 10px;
     margin-left: 0;
