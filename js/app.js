@@ -23,13 +23,14 @@
  * 
 */ 
 const main = document.querySelector('main');
+const nav = document.querySelector('.navbar__menu')
 const navbarList = document.querySelector('#navbar__list');
 let sections = [...document.querySelectorAll('.sections')];
 let count = sections.length;
 const navLinks = document.querySelectorAll('li a');
 const upButton = document.querySelector('#up')
 const newButton = document.querySelector('#new-section');
-
+let links = [];
 /**
  * End Global Variables
  * Start Helper Functions
@@ -52,8 +53,9 @@ isInViewport = (el) => {
 // Update navbar func
 updateNav = () => {for(let i = 0; i < sections.length; i++){
    let li = document.createElement('li');
-   li.innerHTML = `<li id="link${i+1}"><a href="#${sections[i].id}" class="menu__link">${sections[i].dataset.nav}</a> </li>`;
+   li.innerHTML = `<li id="link${i+1}" class="nav-link"><a href="#${sections[i].id}" class="menu__link">${sections[i].dataset.nav}</a> </li>`;
    navbarList.appendChild(li);
+   links = [...document.querySelectorAll('.nav-link')];
 }}
 /**
  * End Helper Functions
@@ -68,9 +70,11 @@ updateNav();
 window.addEventListener('scroll', () => {
    for(let i = 0; i <sections.length; i++){
    if (isInViewport(sections[i]) === true){
-      sections[i].classList.add('your-active-class');
+      sections[i].classList.add('your-active-section');
+      links[i].classList.add('your-active-link')
    } else {
-      sections[i].classList.remove('your-active-class');
+      sections[i].classList.remove('your-active-section');
+      links[i].classList.remove('your-active-link')
    }
 }});
 
@@ -129,4 +133,14 @@ newButton.addEventListener('click', () =>{
    // Clearing the previous navbar in order to update it with the new section added
    document.querySelector('#navbar__list').innerHTML = '';
    updateNav();
+})
+// smooth 
+nav.addEventListener('click', (e) => {
+   e.preventDefault();
+   const target = e.target;
+   if (target.classList.contains('menu__link')) {
+      const id = target.getAttribute('href').slice(1);
+      console.log(id)
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  }
 })
