@@ -46,30 +46,27 @@ isInViewport = (el) => {
    return (
       rect.top >= 0 &&
       rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 200 &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
    );
 }
-// Update navbar func
-updateNav = () => {for(let i = 0; i < sections.length; i++){
+// Update navbar func (IIFE)
+(updateNav = () => {for(let i = 0; i < sections.length; i++){
    let li = document.createElement('li');
    li.innerHTML = `<li id="link${i+1}" class="nav-link"><a href="#${sections[i].id}" class="menu__link">${sections[i].dataset.nav}</a> </li>`;
    navbarList.appendChild(li);
    links = [...document.querySelectorAll('.nav-link')];
-}}
+}})();
 /**
  * End Helper Functions
  * Begin Main Functions
  * 
 */
 
-// build the nav
-updateNav();
-
 // Add class 'active' to section when near top of viewport
 window.addEventListener('scroll', () => {
    for(let i = 0; i <sections.length; i++){
-   if (isInViewport(sections[i]) === true){
+   if (isInViewport(sections[i])){
       sections[i].classList.add('your-active-section');
       links[i].classList.add('your-active-link')
    } else {
@@ -140,7 +137,6 @@ nav.addEventListener('click', (e) => {
    const target = e.target;
    if (target.classList.contains('menu__link')) {
       const id = target.getAttribute('href').slice(1);
-      console.log(id)
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' , block: 'center'});
   }
-})
+});
