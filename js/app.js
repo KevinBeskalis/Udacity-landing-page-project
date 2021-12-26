@@ -137,6 +137,6 @@ nav.addEventListener('click', (e) => {
    const target = e.target;
    if (target.classList.contains('menu__link')) {
       const id = target.getAttribute('href').slice(1);
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' , block: 'center'});
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth'});
   }
 });
